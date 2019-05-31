@@ -1,0 +1,19 @@
+{
+  "name": "discord_nodejs",
+  "version": "1.0.0",
+  "description": "Réalisation d'un bot discord à l'aide de Node.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Fivenn/discord_nodejs.git"
+  },
+  "author": "Nicolas Sueur / Charles Picard",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Fivenn/discord_nodejs/issues"
+  },
+  "homepage": "https://github.com/Fivenn/discord_nodejs#readme"
+}
