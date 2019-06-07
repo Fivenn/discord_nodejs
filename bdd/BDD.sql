@@ -59,3 +59,32 @@ create table Salon (
     primary key(nom,type),
     constraint serveur_salon foreign key (id_serveur) references Serveur(id)
 );
+
+insert into Utilisateur values(1,'bob','456',false,'0000000000');
+insert into Utilisateur values(2,'harry','677',false,'0000000000');
+insert into Utilisateur values(3,'Fiven','555',true,'0000000000');
+insert into Utilisateur values(4,'Loken','333',false,'0000000000');
+insert into Utilisateur values(5,'Birlak','888',false,'0000000000');
+
+insert into Serveur values(1,'IMR',30,4);
+insert into Serveur values(2,'Return null',10,3);
+
+insert into role values('delegue','bleu',2);
+insert into role values('sbire','rouge',3);
+insert into role values('modo','vert',1);
+
+insert into EstMembre values(1,2,null,3);
+insert into EstMembre values(3,2,null,1);
+insert into EstMembre values(4,1,null,2);
+insert into EstMembre values(4,2,null,3);
+
+insert into Commande values('kikoo','dit salut','',1);
+insert into Commande values('yo','dit salut','',1);
+insert into Commande values('wesh','dit salut','',2);
+
+insert into AttributionRole values(1,'kikoo','');
+insert into AttributionRole values(2,'wesh','');
+
+insert into Salon values('general','textuel','general',1);
+insert into Salon values('general','vocal','general',1);
+insert into Salon values('nsfw','vocal','adulte',2);
