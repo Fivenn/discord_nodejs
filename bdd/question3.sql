@@ -1,0 +1,1 @@
+select * from utilisateur join estMembre on utilisateur.id=id_utilisateur join serveur on serveur.id=id_serveur
