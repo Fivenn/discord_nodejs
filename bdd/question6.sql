@@ -1,1 +1,1 @@
-select pseudo from utilisateur where id in (select id_utilisateur from EstMembre where sanction != null and id_serveur = 1);
+select sanction_atom from EstMembre where id_serveur = 2;
