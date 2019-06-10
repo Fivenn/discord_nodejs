@@ -84,7 +84,7 @@ Sanction(duree, __raison__, __atom__)
     </tr>
     <tr>
         <td>atom</td>
-        <td></td>
+        <td>Les différentes variantes sanctions possibles</td>
     </tr>
 </table>
 
@@ -111,7 +111,7 @@ EstMembre(__id_utilisateur__#, __id_serveur__#, role#, sanction_raison#, sanctio
     </tr>
     <tr>
         <td>sanction_atom</td>
-        <td></td>
+        <td>Les différentes variantes de sanctions possibles pour une membre</td>
     </tr>
 </table>
 
@@ -149,7 +149,7 @@ SanctionSalon(__sanction_raison__#, __sanction_atom__#, __nom_salon__#, __type_s
     </tr>
     <tr>
         <td>sanction_atom</td>
-        <td></td>
+        <td>Les différentes variantes de sanctions possibles d'un salon</td>
     </tr>
     <tr>
         <td>nom_salon</td>
@@ -172,7 +172,7 @@ Commande(__nom__, __atom__, nom_salon#, type_salon#)
     </tr>
     <tr>
         <td>atom</td>
-        <td></td>
+        <td>Les différentes variantes de commandes possible</td>
     </tr>
     <tr>
         <td>nom_salon</td>
@@ -191,7 +191,7 @@ AttributionRole(__role__#, __nom_commande__#, __atom_commande__#)
     </tr>
     <tr>
         <td>role</td>
-        <td></td>
+        <td>Le nom d'un rôle</td>
     </tr>
     <tr>
         <td>nom_commande</td>
@@ -199,6 +199,6 @@ AttributionRole(__role__#, __nom_commande__#, __atom_commande__#)
     </tr>
     <tr>
         <td>atom_commande</td>
-        <td></td>
+        <td>Les différentes variantes de commandes possibles pour un rôle</td>
     </tr>
 </table>
