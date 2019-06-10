@@ -33,24 +33,6 @@ create table EstMembre (
     constraint role_membre foreign key (role) references Role(position)
 );
 
-create table Commande (
-    nom varchar(30),
-    description varchar(100),
-    parametre varchar(30),
-    id_serveur integer,
-    primary key(nom,parametre),
-    constraint serveur_commande foreign key (id_serveur) references Serveur(id)
-);
-
-create table AttributionRole(
-    role int,
-    nom_commande varchar(30),
-    parametre varchar(30),
-    primary key(role,nom_commande,parametre),
-    constraint attri_role foreign key (role) references Role(position),
-    constraint attr_commande_nom foreign key (nom_commande,parametre) references Commande(nom,parametre)
-);
-
 create table Salon (
     nom varchar(30),
     type varchar(30),
@@ -59,6 +41,25 @@ create table Salon (
     primary key(nom,type),
     constraint serveur_salon foreign key (id_serveur) references Serveur(id)
 );
+
+create table Commande (
+    nom varchar(30),
+    atom varchar(10),
+    nom_salon varchar(30),
+    type_salon varchar(30),
+    primary key(nom,atom),
+    constraint salon_commande foreign key (nom_salon,type_salon) references Salon(nom,type)
+);
+
+create table AttributionRole(
+    role int,
+    nom_commande varchar(30),
+    atom_commande varchar(30),
+    primary key(role,nom_commande,atom_commande),
+    constraint attri_role foreign key (role) references Role(position),
+    constraint attr_commande_nom foreign key (nom_commande,atom_commande) references Commande(nom,atom)
+);
+
 
 insert into Utilisateur values(1,'bob','456',false,'0000000000');
 insert into Utilisateur values(2,'harry','677',false,'0000000000');
@@ -78,13 +79,13 @@ insert into EstMembre values(3,2,null,1);
 insert into EstMembre values(4,1,null,2);
 insert into EstMembre values(4,2,null,3);
 
-insert into Commande values('kikoo','dit salut','',1);
-insert into Commande values('yo','dit salut','',1);
-insert into Commande values('wesh','dit salut','',2);
-
-insert into AttributionRole values(1,'kikoo','');
-insert into AttributionRole values(2,'wesh','');
-
 insert into Salon values('general','textuel','general',1);
 insert into Salon values('general','vocal','general',1);
 insert into Salon values('nsfw','vocal','adulte',2);
+
+insert into Commande values('kikoo','KICK','general','textuel');
+insert into Commande values('yo','KICK','general','vocal');
+insert into Commande values('wesh','MUTE','nsfw','vocal');
+
+insert into AttributionRole values(1,'kikoo','KICK');
+insert into AttributionRole values(2,'wesh','MUTE');
