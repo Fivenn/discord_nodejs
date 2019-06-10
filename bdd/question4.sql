@@ -1,0 +1,1 @@
+select distinct pseudo from utilisateur where utilisateur.id in (select id_utilisateur from estmembre natural join role where position < 3);

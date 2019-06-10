@@ -1,0 +1,1 @@
+select Salon.nom from Salon natural join Serveur natural join EstMembre where id_utilisateur = 1 and sanction != null;
