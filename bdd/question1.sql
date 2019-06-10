@@ -1,1 +1,1 @@
-SELECT * FROM Serveur;
+select * from Serveur;

@@ -1,1 +1,1 @@
-select sanction_atom from EstMembre where id_serveur = 2;
+select serveur.nom, estmembre.sanction_atom from estmembre join utilisateur on id_utilisateur = utilisateur.id join serveur on id_serveur = serveur.id where sanction_atom is not null and serveur.nom = 'Return null';
