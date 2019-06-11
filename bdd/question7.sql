@@ -1,1 +1,2 @@
+-- Récupérer la liste des joueurs dont les sanctions sont toujours actives sur un serveur Discord.
 select utilisateur.pseudo, serveur.nom from estmembre join utilisateur on id_utilisateur = utilisateur.id join serveur on id_serveur = serveur.id where sanction_atom is not null and serveur.nom = 'Return null';
