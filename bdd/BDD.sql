@@ -97,7 +97,8 @@ insert into role values('delegue','bleu',2);
 insert into role values('sbire','rouge',3);
 insert into role values('modo','vert',1);
 
-insert into Sanction values(true,'relou','KICK');
+insert into Sanction values(true, 3600, 'relou','KICK');
+insert into Sanction values(false, null, 'giga relou', 'BAN');
 
 insert into SanctionSalon values('relou','KICK','nsfw','vocal');
 
