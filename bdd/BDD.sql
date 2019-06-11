@@ -23,7 +23,8 @@ create table Role (
 );
 
 create table Sanction (
-    duree boolean,
+    tmp boolean,
+    duree integer,
     raison varchar(100),
     atom varchar(10),
     primary key(raison,atom)
