@@ -1,1 +1,2 @@
 -- Récupérer la liste de joueurs ayant des sanctions similaires sur différents serveurs.
+select distinct pseudo from (SELECT distinct EMA.id_utilisateur FROM estmembre EMA, estmembre EMB where EMA.sanction_atom = EMB.sanction_atom and EMA.id_utilisateur = EMB.id_utilisateur and EMA.id_serveur != EMB.id_serveur) as tmp join utilisateur on utilisateur.id = tmp.id_utilisateur
