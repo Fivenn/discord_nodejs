@@ -75,8 +75,16 @@ Sanction(duree, __raison__, __atom__)
         <th>Sanction</th>
     </tr>
     <tr>
+        <td>
+            tmp
+        </td>
+        <td>
+            Le choix de la sanction (temporaire ou définitive)
+        </td>
+    </tr>
+    <tr>
         <td>duree</td>
-        <td>Le choix de mettre une durée sur une sanction</td>
+        <td>La durée d'une sanction si celle-ci est temporaire</td>
     </tr>
     <tr>
         <td>raison</td>
