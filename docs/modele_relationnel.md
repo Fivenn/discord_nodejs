@@ -96,7 +96,12 @@ Sanction(duree, __raison__, __atom__)
     </tr>
 </table>
 
-EstMembre(__id_utilisateur__#, __id_serveur__#, role#, sanction_raison#, sanction_atom#)
+EstMembre(__id_utilisateur__, __id_serveur__, role, sanction_raison, sanction_atom)<br>
+EstMembre[id_utilisateur] C Utilisateur[id]<br>
+EstMembre[id_serveur] C Serveur[id]<br>
+EstMembre[role] C Role[nom]<br>
+EstMembre[sanction_raison] C Sanction[raison]<br>
+EstMembre[sanction_atom] C Sanction[atom]
 <table>
     <tr>
         <th>EstMembre</th>
@@ -123,7 +128,8 @@ EstMembre(__id_utilisateur__#, __id_serveur__#, role#, sanction_raison#, sanctio
     </tr>
 </table>
 
-Salon(__nom__, __type__, categorie, id_serveur#)
+Salon(__nom__, __type__, categorie, id_serveur#)<br>
+Salon[id_serveur] C Serveur[id]
 <table>
     <tr>
         <th>Salon</th>
@@ -146,7 +152,11 @@ Salon(__nom__, __type__, categorie, id_serveur#)
     </tr>
 </table>
 
-SanctionSalon(__sanction_raison__#, __sanction_atom__#, __nom_salon__#, __type_salon__#)
+SanctionSalon(__sanction_raison__, __sanction_atom__, __nom_salon__, __type_salon__)<br>
+SanctionSalon[sanction_raison] C Sanction[raison]<br>
+SanctionSalon[saction_atom] C Sanction[atom]<br>
+SanctionSalon[nom_salon] C Salon[nom]<br>
+SanctionSalon[type_salon] C Salon[type]
 <table>
     <tr>
         <th>SanctionSalon</th>
@@ -169,7 +179,9 @@ SanctionSalon(__sanction_raison__#, __sanction_atom__#, __nom_salon__#, __type_s
     </tr>
 </table>
 
-Commande(__nom__, __atom__, nom_salon#, type_salon#)
+Commande(__nom__, __atom__, nom_salon, type_salon)<br>
+Commande[nom_salon] C Salon[nom]<br>
+Commande[type_salon] C Salon[type]
 <table>
     <tr>
         <th>Commande</th>
@@ -192,7 +204,10 @@ Commande(__nom__, __atom__, nom_salon#, type_salon#)
     </tr>
 </table>
 
-AttributionRole(__role__#, __nom_commande__#, __atom_commande__#)
+AttributionRole(__role__, __nom_commande__, __atom_commande__)<br>
+AttributionRole[role] C Role[nom]<br>
+AttributionRole[nom_commande] C Commande[nom]<br>
+AttributionRole[atom_commande] C Commande[atom]
 <table>
     <tr>
         <th>AttributionRole</th>
