@@ -1,0 +1,10 @@
+[Error - 17:09:27] Request textDocument/definition failed.
+  Message: System.ArgumentOutOfRangeException: Index was out of range. Must be non-negative and less than the size of the collection.
+Parameter name: index
+   at Babel.ParserGenerator.MinimalList`1.get_Item(Int32 index)
+   at Babel.ParserGenerator.ModifiedMinimalList`1.get_Item(Int32 index)
+   at Microsoft.SqlServer.Management.SqlParser.Parser.TokenManager.GetToken(Int32 tokenNumber)
+   at Microsoft.SqlTools.ServiceLayer.LanguageServices.Completion.ScriptDocumentInfo.GetPeekDefinitionTokens(ScriptParseInfo scriptParseInfo, Int32 startLine, Int32 startColumn) in D:\a\1\s\src\Microsoft.SqlTools.ServiceLayer\LanguageServices\ScriptDocumentInfo.cs:line 158
+   at Microsoft.SqlTools.ServiceLayer.LanguageServices.LanguageService.GetDefinition(TextDocumentPosition textDocumentPosition, ScriptFile scriptFile, ConnectionInfo connInfo) in D:\a\1\s\src\Microsoft.SqlTools.ServiceLayer\LanguageServices\LanguageService.cs:line 1239
+   at Microsoft.SqlTools.ServiceLayer.LanguageServices.LanguageService.HandleDefinitionRequest(TextDocumentPosition textDocumentPosition, RequestContext`1 requestContext) in D:\a\1\s\src\Microsoft.SqlTools.ServiceLayer\LanguageServices\LanguageService.cs:line 415
+  Code: 0 

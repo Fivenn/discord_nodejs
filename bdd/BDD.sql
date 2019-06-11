@@ -98,6 +98,7 @@ insert into role values('sbire','rouge',3);
 insert into role values('modo','vert',1);
 
 insert into Sanction values(true, 3600, 'relou','KICK');
+insert into Sanction values(true, 3600, 'spam','KICK');
 insert into Sanction values(false, null, 'giga relou', 'BAN');
 
 insert into SanctionSalon values('relou','KICK','nsfw','vocal');
@@ -107,6 +108,7 @@ insert into EstMembre values(1, 1, 3, 'giga relou', 'BAN');
 insert into EstMembre values(3,2,1,null,null);
 insert into EstMembre values(4,1,2,null,null);
 insert into EstMembre values(4,2,3,null,null);
+insert into EstMembre values(5,2,3,null,null);
 
 
 insert into Commande values('kikoo','KICK','general','textuel');
