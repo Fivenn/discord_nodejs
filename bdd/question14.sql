@@ -1,2 +1,2 @@
 -- Récupérer la liste de joueurs ayant des sanctions sur différents serveurs partageant une temporalité commune.
-select pseudo from Utilisateur natural join EstMembre as A1, EstMembre as A2 where A1.sanction_atom = A2.sanction_raison and A1.sanction_raison = A2.sanction_atom and A1.id_serveur != A2.id_serveur and A1.id_utilisateur = A2.id_utilisateur;
+select distinct id_utilisateur from EstMembre natural join Sanction as S1, sanction as S2 where S1.tmp = S2.tmp and S1.duree = S2.duree and S2.tmp is not null and S1.tmp is not null and S1.atom is not null and S2.atom is not null and sanction_raison is not null;

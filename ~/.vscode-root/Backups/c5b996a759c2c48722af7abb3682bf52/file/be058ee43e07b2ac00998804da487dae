@@ -1,3 +1,4 @@
+file:///home/loken/Bureau/IMR1/Web/NodeJS/discord_nodejs/bdd/BDD.sql {"mtime":1560266305954,"size":3889,"etag":"33d2576h641e","orphaned":false}
 create table Utilisateur (
     id integer,
     pseudo varchar(30) not null,
@@ -107,7 +108,7 @@ insert into EstMembre values(1,2,3,'relou','KICK');
 insert into EstMembre values(3,2,1,null,null);
 insert into EstMembre values(4,1,2,null,null);
 insert into EstMembre values(4,2,3,null,null);
-insert into EstMembre values(5,2,3,null,null);
+insert into EstMembre values(5,2,3,'spam','KICK');
 
 
 insert into Commande values('kikoo','KICK','general','textuel');
