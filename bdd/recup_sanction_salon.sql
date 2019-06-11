@@ -1,0 +1,2 @@
+--Reccuperation des utilisateurs sanctionnes dans un salon
+select pseudo from utilisateur where id in (select distinct id_utilisateur from estmembre natural join sanction natural join sanctionsalon where nom_salon = 'nsfw' and type_salon = 'vocal');
