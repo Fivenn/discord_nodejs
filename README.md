@@ -1,7 +1,7 @@
 # discord_nodejs
 Bot Discord NodeJS
 
-##Partie 1 : Base de données
+## Partie 1 : Base de données
 
 * Pour créer la BDD il faut exécuter le fichier bdd/BDD.sql qui s'occupera de créer les différentes tables et les peupler
 * Le rapport explique le fonctionnement de la BDD et il fait référence au fichier modele_relationnel.md qui décrit le modèle des données et les dictionnaires des tables.
