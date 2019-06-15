@@ -1,7 +1,7 @@
-"use strict";
+var W3CWebSocket = require('websocket').w3cwebsocket;
 var token="NTg4MzQzODQ2OTcxMTEzNDky.XQFILg.JBroGPXz-uKohK4Y6NncOG_wfd8",
 
-WebSocket = require("ws").w3cwebsocket, ws = new WebSocket("wss://gateway.discord.gg/?encoding=json&v=6"), sequence = 0;
+ws = new W3CWebSocket("wss://gateway.discord.gg/?encoding=json&v=6"), sequence = 0;
 ws.onopen = function() {
     return console.log("OPEN!")
 }, ws.onerror = function(a) {
