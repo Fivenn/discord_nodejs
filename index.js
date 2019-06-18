@@ -39,7 +39,6 @@ ws.onopen = function() {
             content: "You're breathtaking!"
          });
 
-         // Send message
          let req = https.request({
             method: 'POST',
             headers: {
