@@ -26,12 +26,14 @@ ws.onopen = function() {
             "presence": {
                   "status": "online",
                   "since": 91879201,
-                  "afk": true
+                  "afk": false
              }
          }
          var bigPayload = {"op": 2, "d": payload};
            ws.send(JSON.stringify(bigPayload));
      } else if (data.op == 0 && data.t == "READY") {
          console.log(data);
-     }
+     } else if(data.op == 0 && data.d.content == "-ping"){
+         console.log("yo!!");
+    }
 }
