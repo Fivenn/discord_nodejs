@@ -1,33 +1,31 @@
 var W3CWebSocket = require('websocket').w3cwebsocket;
-var token="NTg4MzQzODQ2OTcxMTEzNDky.XQFILg.JBroGPXz-uKohK4Y6NncOG_wfd8",
 
-ws = new W3CWebSocket("wss://gateway.discord.gg/?encoding=json&v=6"), sequence = 0;
-ws.onopen = function() {
-    return console.log("OPEN!")
-}, ws.onerror = function(a) {
-    console.error(a), process.exit(1)
-}, ws.onclose = function(a) {
-    console.error(a), process.exit(1)
-}, ws.onmessage = function(a) {
-    try {
-        var b = JSON.parse(a.data);
-        if (0 === b.op) return;
-        console.log(b), sequence = b.s, 10 === b.op && (ws.send(JSON.stringify({
-            op: 2,
-            d: {
-                token: token,
-                properties: {
-                    $browser: "firefox"
-                },
-                large_threshold: 50
-            }
-        })), setInterval(function() {
-            ws.send(JSON.stringify({
-                op: 1,
-                d: sequence
-            }))
-        }, b.d.heartbeat_interval))
-    } catch (a) {
-        console.error(a)
-    }
-};
+var token = "NTg4MzQzODQ2OTcxMTEzNDky.XQjF5A.WM3z7lrV6iacw7OWVUGyFb5-mZY";
+var ws = new W3CWebSocket("wss://gateway.discord.gg/?v=6&encoding=json");
+    
+ws.onmessage = function (evt) {
+    var msg = evt.data;
+    var data = JSON.parse(msg);
+    if (data.op == 10) {
+        console.log(data);
+        var payload = {
+             "token": token,
+             "properties": {
+                "$os": "browser",
+                "$browser": "chrome",
+                   "$device": "device"
+             },
+            "compress": false,
+            "large_threshold": 250,
+            "presence": {
+                  "status": "online",
+                  "since": 91879201,
+                 "afk": false
+             }
+         }
+         var masterPayload = {"op": 2, "d": payload};
+           ws.send(JSON.stringify(masterPayload));
+     } else if (data.op == 0 && data.t == "READY") {
+         console.log(data);
+     }
+}
