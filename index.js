@@ -1,4 +1,5 @@
 var W3CWebSocket = require('websocket').w3cwebsocket;
+var https = require('https');
 
 var token = "NTg4MzQzODQ2OTcxMTEzNDky.XQjF5A.WM3z7lrV6iacw7OWVUGyFb5-mZY";
 var ws = new W3CWebSocket("wss://gateway.discord.gg/?v=6&encoding=json");
@@ -33,7 +34,29 @@ ws.onopen = function() {
            ws.send(JSON.stringify(bigPayload));
      } else if (data.op == 0 && data.t == "READY") {
          console.log(data);
-     } else if(data.op == 0 && data.d.content == "-ping"){
-         console.log("yo!!");
+     } else if(data.op == 0 && data.d.content == "-keanu"){
+        const content = JSON.stringify({
+            content: "You're breathtaking!"
+         });
+
+         // Send message
+         let req = https.request({
+            method: 'POST',
+            headers: {
+               "Content-Type": 'application/json',
+               "Authorization": 'Bot ' + token
+            },
+            hostname: "discordapp.com",
+            path: `/api/v6/channels/588438839018913798/messages`
+         }, (res) => {
+            console.log(res);
+         });
+
+         req.on('error', (error) => {
+            console.log(error);
+         });
+
+         req.write(content);
+         req.end();
     }
 }
