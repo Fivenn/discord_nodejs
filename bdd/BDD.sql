@@ -117,3 +117,6 @@ insert into Commande values('wesh','MUTE','nsfw','vocal');
 
 insert into AttributionRole values(1,'kikoo','KICK');
 insert into AttributionRole values(2,'wesh','MUTE');
+
+ GRANT ALL PRIVILEGES ON TABLE attributionrole, Commande, estmembre, role, sanction, sanctionsalon, serveur, utilisateur TO bot_discord;
+
