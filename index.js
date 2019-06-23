@@ -24,7 +24,6 @@ botDiscord.on('ready', () => {
 });
 
 botDiscord.on('guildCreate', () => {
-    var pseudo = null;
     console.log('New guild joined');
     var guild_list = [];
     var compteur = 0;
@@ -32,18 +31,38 @@ botDiscord.on('guildCreate', () => {
         guild_list.push(element).guild;
         compteur++;
     });
-    console.log((guild_list[compteur-1]).name);
+
+    const channel_list = guild_list[compteur-1].channels;
+    //channel.name + channel.type a reccuperer lors de l'insertion BDD
+
+    const roles_list = guild_list[compteur-1].roles;
+    //Table role  : role.name + role.position + role.color
+    
+    const membre_list = guild_list[compteur-1].members;
+    //Table estMembre : role.members 
+
     const id_serveur = guild_list[compteur-1].id;
     const nom_serveur = guild_list[compteur-1].name;
     const capacite = 30;
-    const createur = guild_list[compteur-1].ownerID; 
+    const id_createur = guild_list[compteur-1].ownerID; 
+    var is_nitro = guild_list[compteur-1].owner.client.premium;
+    var pseudo = guild_list[compteur-1].owner.user.username;
+    var num_authent = guild_list[compteur-1].owner.user.discriminator;
 
-    botDiscord.users.forEach(element => {
-        if(element.id == createur) {
-            pseudo = element.username;
-        
-        }
+    console.log(is_nitro);
+    console.log(num_authent);
+
+    membre_list.forEach(element => {
+        console.log(element.user.username);
     });
+
+    roles_list.forEach(element => {
+        console.log(element.name+"  "+element.position);
+    });
+    
+    channel_list.forEach(element => {
+        console.log(element.name+"  "+element.type);
+    }); 
 
     console.log(pseudo);
     
