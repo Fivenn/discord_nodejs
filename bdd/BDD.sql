@@ -1,5 +1,5 @@
 create table Utilisateur (
-    id integer,
+    id bigint,
     pseudo varchar(30) not null,
     num_authent integer not null,
     nitro boolean,
@@ -8,10 +8,11 @@ create table Utilisateur (
 );
 
 create table Serveur (
-    id integer,
+    id bigint,
     nom varchar(30),
+    token varchar(30),
     capacite integer not null,
-    createur integer not null,
+    createur bigint not null,
     primary key(id)
 );
 
@@ -31,8 +32,8 @@ create table Sanction (
 );
 
 create table EstMembre (
-    id_utilisateur integer,
-    id_serveur integer,
+    id_utilisateur bigint,
+    id_serveur bigint,
     role integer,
 	sanction_raison varchar(100),
     sanction_atom varchar(10),
@@ -47,7 +48,7 @@ create table Salon (
     nom varchar(30),
     type varchar(30),
     categorie varchar(30),
-    id_serveur integer,
+    id_serveur bigint,
     primary key(nom,type),
     constraint serveur_salon foreign key (id_serveur) references Serveur(id)
 );
@@ -86,8 +87,8 @@ insert into Utilisateur values(3,'Fiven','555',true,'0000000000');
 insert into Utilisateur values(4,'Loken','333',false,'0000000000');
 insert into Utilisateur values(5,'Birlak','888',false,'0000000000');
 
-insert into Serveur values(1,'IMR',30,4);
-insert into Serveur values(2,'Return null',10,3);
+insert into Serveur values(1,'IMR',null,30,4);
+insert into Serveur values(2,'Return null',null,10,3);
 
 insert into Salon values('general','textuel','general',1);
 insert into Salon values('general','vocal','general',1);
@@ -117,3 +118,5 @@ insert into Commande values('wesh','MUTE','nsfw','vocal');
 
 insert into AttributionRole values(1,'kikoo','KICK');
 insert into AttributionRole values(2,'wesh','MUTE');
+
+ GRANT ALL PRIVILEGES ON TABLE attributionrole, Commande, estmembre, role, sanction, sanctionsalon, serveur, utilisateur, salon TO bot_discord;
