@@ -120,3 +120,17 @@ insert into AttributionRole values(2,'wesh','MUTE');
 
  GRANT ALL PRIVILEGES ON TABLE attributionrole, Commande, estmembre, role, sanction, sanctionsalon, serveur, utilisateur TO bot_discord;
 
+==================================================================================
+-- Peuplement pour la commande BAN
+insert into Utilisateur values(1,'Fiven','5555',true,'0000000000');
+insert into Utilisateur values(2,'Birlak','6666',false,'0000000000');
+insert into Serveur values(1, 'NodeJS', 30, 1);
+insert into Salon values('general', 'textuel', 'general', 1);
+insert into role values('admin', 'bleu',1);
+insert into role values('sbire', 'rouge', 5);
+-- insert into Sanction values(false, null, 'relou', 'BAN');
+-- insert into SanctionSalon values('relou', 'KICK', 'nsfw', 'vocal');
+insert into EstMembre values(1,1,1,null,null);
+insert into EstMembre values(2,1,5,null,null);
+insert into Commande values('ban', 'BAN', 'general', 'textuel');
+insert into AttributionRole values(1, 'ban', 'BAN');
