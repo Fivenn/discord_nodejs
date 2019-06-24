@@ -58,6 +58,8 @@ botDiscord.on('message', message => {
                 member.ban({
                     reason: 'They were bad!',
                 }).then(() => {
+                    //INSERT dans Sanction
+                    // UPDATE dans Estmembre
                     message.reply(`Successfully banned ${user.tag}`);
                 }).catch(err => {
                     message.reply('I was unable to ban the member');
@@ -72,11 +74,10 @@ botDiscord.on('message', message => {
     }
 });
 
-const text = `SELECT * FROM estmembre join utilisateur on estmembre.id_utilisateur = utilisateur.id join serveur on estmembre.id_serveur = serveur.id where pseudo = 'Fiven' and serveur.nom = 'NodeJS'`;
-dbDiscord.query(text)
-  .then(res => {
-    if(res.rows[0].role < 3) {
-        console.log(res.rows);
-    }
-  })
-  .catch(e => console.error(e.stack))
+//   text = `SELECT * FROM estmembre join utilisateur on estmembre.id_utilisateur = utilisateur.id join serveur on estmembre.id_serveur = serveur.id where pseudo = 'Birlak' and serveur.nom = 'NodeJS'`;
+//   dbDiscord.query(text).then(res => {
+//       if(res.rows[0].role >= 3) {
+//           console.log(res.rows);
+//       }
+//   }).catch(e => console.error(e.stack));
+
