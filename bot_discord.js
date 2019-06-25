@@ -26,12 +26,21 @@ botDiscord.on('ready', () => {
 botDiscord.on('message', message => {
     if(!message.guild) return;
     
+    /* Si la commande commence par "!kick" alors éxécution du code dans la condition.
+    * Commande sous la forme !kick @membername raison_kick
+    */
     if(message.content.startsWith('!kick')) {
-        const user = message.mentions.users.first();
+        const user = message.mentions.users.first(); // Récupération du nom de l'utilisateur à bannir
+        const guild = message.guild; // Récupération du nom du serveur sur lequel on exécute la commande
+        const regexCmd = /\s?([<0-9>])\s/; // Regex permettant de récupérer la raison du ban
+        const resRegCmd = message.content.split(regexCmd); // On applique la regex sur le contenu de la commande
+
+        /* Si on arrive à récupérer l'utilisateur Discord */
         if(user) {
             const member = message.guild.member(user);
             if(member) {
-                member.kick('Optional reason that will display in the audit logs').then(() => {
+                /* Raison du kick à fournir au client Discord pour les logs */
+                member.kick(`${resRegCmd[2]}`).then(() => {
                     message.reply(`Successfully kicked ${user.tag}`);
                 }).catch(err => {
                     message.reply('I was unable to kick the member');
@@ -60,7 +69,7 @@ botDiscord.on('message', message => {
             /* Si on arrive à récupérer le membre du serveur Discord associé à l'utilisateur */
             if(member) {
                 member.ban({
-                    reason: `${resRegCmd[2]}`, // Raison du ban à fournir au client Discord
+                    reason: `${resRegCmd[2]}`, // Raison du ban à fournir au client Discord`pour les logs
                 }).then(() => {
                     /* Impossible d'envoyer un message privé à un utilisateur quand on le BAN (le bot doit avoir un serveur commun avec lui) */
                     // user.send(`You have been banned from the ${guild.name} server for the following reason: ${resRegCmd[2]}`);
