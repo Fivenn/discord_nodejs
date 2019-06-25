@@ -52,32 +52,37 @@ botDiscord.on('message', message => {
 
     if(message.content.startsWith('!ban')) {
         const user = message.mentions.users.first();
+        const guild = message.guild;
         if(user) {
             const member = message.guild.member(user);
             if(member) {
                 member.ban({
                     reason: 'They were bad!',
                 }).then(() => {
-                    //INSERT dans Sanction
-                    // UPDATE dans Estmembre
+                    // insert into Sanction values (false, null, 'CHEH', 'BAN')
+                    var regexCmd = /\s?([<0-9>])\s/;
+                    var resRegCmd = message.content.split(regexCmd);
+                    const request = `insert into Sanction values (false, null, '${resRegCmd[2]}', 'BAN')`;
+                    dbDiscord.query(request).then(res => {
+                        console.log(res.rows[0]);
+                    }).catch(e => console.error(e.stack));
+                    /* UPDATE update estmembre
+                    *   set sanction_raison = 'CHEH', sanction_atom = 'BAN'
+                    *   from utilisateur, serveur
+                    *   where utilisateur.id = estmembre.id_utilisateur and serveur.id = estmembre.id_serveur and utilisateur.pseudo = '${user.username}' and serveur.nom = '${guild.name}'; */
+
                     message.reply(`Successfully banned ${user.tag}`);
                 }).catch(err => {
                     message.reply('I was unable to ban the member');
                     console.error(err);
+                    console.log(`${user.username}, ${guild.name}`);
                 });
             } else {
                 message.reply('That user isn\'t in this guild!');
             }
         } else {
-            message.reply('Uou didn\'t mention the user to ban!');
+            message.reply('You didn\'t mention the user to ban!');
         }
     }
 });
-
-//   text = `SELECT * FROM estmembre join utilisateur on estmembre.id_utilisateur = utilisateur.id join serveur on estmembre.id_serveur = serveur.id where pseudo = 'Birlak' and serveur.nom = 'NodeJS'`;
-//   dbDiscord.query(text).then(res => {
-//       if(res.rows[0].role >= 3) {
-//           console.log(res.rows);
-//       }
-//   }).catch(e => console.error(e.stack));
 
