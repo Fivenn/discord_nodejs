@@ -146,6 +146,7 @@ botDiscord.on('guildCreate', () => {
 
 });
 
-botDiscord.on('guildDelete', () => {
+botDiscord.on('guildDelete', (guild) => {
     console.log('ByeBye');
+    //nettoyage des tables
 });
