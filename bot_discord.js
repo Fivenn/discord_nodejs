@@ -121,6 +121,7 @@ botDiscord.on('message', message => {
         }
     }
 
+    /* Commande fonctionnelle mais problème de permission */
     if(message.content.startsWith('!mute')) {
         const user = message.mentions.users.first(); // Récupération du nom de l'utilisateur à bannir
         const guild = message.guild; // Récupération du nom du serveur sur lequel on exécute la commande
