@@ -41,7 +41,7 @@ app.post('/submit-connection', (req, res) => {
             console.log(retour.rows[0].nom);
             res.render('configuration',{"name":retour.rows[0].id});
          } else {
-             console.log("pas bon");
+            res.render('index');
          }
     })
 });
