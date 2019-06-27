@@ -127,7 +127,6 @@ function kick(message) {
                 dbDiscord.query(request).then(res => {
                     console.log(res.rows[0]);
                 }).catch(e => console.error(e.stack));
-
                 message.reply(`Successfully kicked ${user.tag}`);
             }).catch(err => {
                 message.reply('I was unable to kick the member');
@@ -159,7 +158,7 @@ async function mute(message) {
                 try {
                     muterole = await message.guild.createRole({
                         name: "muted",
-                        color: "#0000000",
+                        color: "#FF0000",
                         permissions: []
                     })
                     message.guild.channels.forEach(async channel => {
@@ -170,9 +169,15 @@ async function mute(message) {
                     });
                 } catch (e) {
                     console.log(e.stack);
+                    message.reply('impossible to create or assign the "mute" role');
                 }
             }
-            await(member.addRole(muterole.id));
+            await(member.addRole(muterole.id)).then(res => {
+                message.reply(`Successfully mute ${user.tag}`);
+            }).catch(err => {
+                message.reply('I was unable to mute the member');
+                console.error(err);
+            })
         } else {
             message.reply('That user isn\'t in this guild');
         }
