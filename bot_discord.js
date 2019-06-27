@@ -177,6 +177,22 @@ async function mute(message) {
                 }
             }
             await(member.addRole(muterole.id)).then(res => {
+                var request = `insert into Sanction values (false, null, '${resRegCmd[2]}', 'MUTE')`; // Insertion dans la table Sanction de l'atom et la raison du ban (ajout de la temporalité si assez de temps)
+                /* Éxécution de la requête sur la database bot_discord */
+                dbDiscord.query(request).then(res => {
+                    console.log(res.rows[0]);
+                }).catch(e => console.error(e.stack));
+
+                /* Update du membre à bannir pour lui appliquer la sanction dans notre database */
+                request = `update estmembre
+               set sanction_raison = '${resRegCmd[2]}', sanction_atom = 'MUTE'
+               from utilisateur, serveur
+               where utilisateur.id = estmembre.id_utilisateur and serveur.id = estmembre.id_serveur and utilisateur.pseudo = '${user.username}' and serveur.nom = '${guild.name}'`;
+                /* Éxécution de la requête sur la database bot_discord */
+                dbDiscord.query(request).then(res => {
+                    console.log(res.rows[0]);
+                }).catch(e => console.error(e.stack));
+
                 message.reply(`Successfully mute ${user.tag}`);
             }).catch(err => {
                 message.reply('I was unable to mute the member');
@@ -222,6 +238,22 @@ async function deaf(message) {
                 }
             }
             await(member.addRole(muterole.id)).then(res => {
+                var request = `insert into Sanction values (false, null, '${resRegCmd[2]}', 'DEAF')`; // Insertion dans la table Sanction de l'atom et la raison du ban (ajout de la temporalité si assez de temps)
+                /* Éxécution de la requête sur la database bot_discord */
+                dbDiscord.query(request).then(res => {
+                    console.log(res.rows[0]);
+                }).catch(e => console.error(e.stack));
+
+                /* Update du membre à bannir pour lui appliquer la sanction dans notre database */
+                request = `update estmembre
+               set sanction_raison = '${resRegCmd[2]}', sanction_atom = 'DEAF'
+               from utilisateur, serveur
+               where utilisateur.id = estmembre.id_utilisateur and serveur.id = estmembre.id_serveur and utilisateur.pseudo = '${user.username}' and serveur.nom = '${guild.name}'`;
+                /* Éxécution de la requête sur la database bot_discord */
+                dbDiscord.query(request).then(res => {
+                    console.log(res.rows[0]);
+                }).catch(e => console.error(e.stack));
+
                 message.reply(`Successfully deaf ${user.tag}`);
             }).catch(err => {
                 message.reply('I was unable to deaf the member');
