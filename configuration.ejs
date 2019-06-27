@@ -1,0 +1,196 @@
+
+
+<!DOCTYPE html>
+<html lang='en'>
+   <head>
+      <meta charset='utf-8'>
+      <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+      <meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=n'>
+      <meta name='description' content=''>
+      <meta name='author' content=''>
+      <title>Gestion de mon Serveur</title>
+      <!-- Custom fonts for this template-->
+      <link href='/public/css/sb-admin-2.css' rel='stylesheet' type='text/css'>
+      <link href='https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i' rel='stylesheet'>
+      <!-- Custom styles for this template-->
+      <link href='/exo_php/views/css/sb-admin-2.min.css' rel='stylesheet'>
+   </head>
+   <body id="page-top">
+      <!-- Page Wrapper -->
+      <div id="wrapper">
+         <!-- Sidebar -->
+         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
+               <div class="sidebar-brand-icon rotate-n-15">
+                  <i class="fas fa-laugh-wink"></i>
+               </div>
+               <div class="sidebar-brand-text mx-3">Gestion de mon Serveur</div>
+            </a>
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item active">
+               <a class="nav-link" href="/">
+               <i class="fas fa-fw fa-tachometer-alt"></i>
+               <span>Connection</span></a>
+            </li>
+            <!-- Divider -->
+            <hr class="sidebar-divider d-none d-md-block">
+         </ul>
+         <!-- End of Sidebar -->
+         <!-- Begin Page Content -->
+         <div class="container-fluid">
+            <!-- Page Heading -->
+            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+               <h1 class="h3 mb-0 text-gray-800"><%= name %> </h1>
+            </div>
+            <div class="row">
+               <div class="col-lg-6">
+                  <div class="card shadow mb-4">
+                     <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Activation des logs</h6>
+                     </div>
+                     <div class="card-body">
+                        <div class="my-2"></div>
+                        <form form class='user' method='POST' action='/activation_log'>
+                          <input type="hidden" id='guild' name='guild' value=<%= id %>>
+                          <input type='submit' value='Activer les logs' class='btn btn-primary btn-user btn-block'/>
+                        </form>
+                        <div class="my-2"></div>
+                        <form form class='user' method='POST' action='/desactivation_log'>
+                          <input type="hidden" id='guild' name='guild' value=<%= id %>>
+                          <input type='submit' value='Désactiver les logs' class='btn btn-primary btn-user btn-block'/>
+                        </form>
+                     </div>
+                  </div>
+               </div>
+               <div class="card shadow mb-4">
+                  <div class="card-header py-3">
+                     <h6 class="m-0 font-weight-bold text-primary">Gestion des rôles</h6>
+                  </div>
+                  <div class="card-body">
+                    <form form class='user' method='POST' action='/configuration'>
+                      <input type="hidden" id='guild' name='guild' value=<%= id %>
+                      <div class="table-responsive">
+                          <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                  <th>Role</th>
+                                  <th>Mute</th>
+                                  <th>Deaf</th>
+                                  <th>Kick</th>
+                                  <th>Ban</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                              <% roles.forEach((element) => { %>
+                                <input type="hidden" id='role' name='role' value=<%= element.name %>>
+                                <tr>
+                                  <td><%= element.name %></td>
+                                  <td><input type="checkbox" id='Mute' name='Mute' value=<%= element.name %>></td>
+                                  <td><input type="checkbox" id='Deaf' name='Deaf' value=<%= element.name %>></td>
+                                  <td><input type="checkbox" id='Kick' name='Kick' value=<%= element.name %>></td>
+                                  <td><input type="checkbox" id='Ban' name='Ban' value=<%= element.name %>></td>
+                                </tr>
+                              <% }) %>
+                            </tbody>
+                          </table>
+                      </div>
+                      <div class="my-2"></div>
+                      <input type='submit' value='Valider' class='btn btn-primary btn-user btn-block'/>
+
+                    </form>
+                  </div>
+               </div>
+            <div class="row">
+                <div class="col-lg-6">
+                   <div class="card shadow mb-4">
+                      <form form class='user' method='POST' action='/creationRole'>
+
+                      <div class="card-header py-3">
+                         <h6 class="m-0 font-weight-bold text-primary">Créer un rôle</h6>
+                      </div>
+                      <div class="card-body">
+                          <input type="hidden" id='guild' name='guild' value=<%= id %>>
+                          <input type="text" class="form-control form-control-user" id="roleName" name="roleName" placeholder="Nom du rôle">
+                          <input type="text" class="form-control form-control-user" id="roleColor" name="roleColor" placeholder="Couleur : BLUE / YELLOW / GREEN / RED...">
+                          <input type="text" class="form-control form-control-user" id="rolePosition" name="rolePosition" placeholder="Position 0, 1, 2 ...">
+                          <input type='submit' value='Valider' class='btn btn-primary btn-user btn-block'/>
+                      </div>
+                   </div>
+                  </form>
+                </div>
+                
+         
+               <!-- /.container-fluid -->
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                   <div class="card shadow mb-4">
+                      <form form class='user' method='POST' action='/creationCommande'>
+
+                      <div class="card-header py-3">
+                         <h6 class="m-0 font-weight-bold text-primary">Créer une commande</h6>
+                      </div>
+                      <div class="card-body">
+                          <input type="hidden" id='guild' name='guild' value=<%= id %>>
+                          <input type="text" class="form-control form-control-user" id="commandeName" name="commandeName" placeholder="Nom de la commande">
+                          <input type="text" class="form-control form-control-user" id="commandeAtom" name="commandeAtom" placeholder="KICK, BAN, MUTE, DEAF">
+                          <input type="text" class="form-control form-control-user" id="commandeSalonName" name="commandeSalonName" placeholder="Nom du salon où appliquer la commande">
+                          <input type="text" class="form-control form-control-user" id="commandeSalonType" name="commandeSalonType" placeholder="Type du salon où appliquer la commande">
+                          <input type='submit' value='Valider' class='btn btn-primary btn-user btn-block'/>
+                      </div>
+                   </div>
+                  </form>
+                </div>
+                
+         
+               <!-- /.container-fluid -->
+            </div>
+            <!-- End of Main Content -->
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+               <div class="container my-auto">
+                  <div class="copyright text-center my-auto">
+                     <span>Copyright &copy; Your Website 2019</span>
+                  </div>
+               </div>
+            </footer>
+            <!-- End of Footer -->
+         </div>
+         <!-- End of Content Wrapper -->
+      </div>
+      <!-- End of Page Wrapper -->
+      <!-- Scroll to Top Button-->
+      <a class="scroll-to-top rounded" href="#page-top">
+      <i class="fas fa-angle-up"></i>
+      </a>
+      <!-- Logout Modal-->
+      <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+         <div class="modal-dialog" role="document">
+            <div class="modal-content">
+               <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                  <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">×</span>
+                  </button>
+               </div>
+               <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+               <div class="modal-footer">
+                  <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                  <a class="btn btn-primary" href="login.html">Logout</a>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- Bootstrap core JavaScript-->
+      <script src='/public/vendor/jquery/jquery.min.js'></script>
+      <script src='/public/vendor/bootstrap/js/bootstrap.bundle.min.js'></script>
+      <!-- Core plugin JavaScript-->
+      <script src='/public/jquery-easing/jquery.easing.min.js'></script>
+      <!-- Custom scripts for all pages-->
+      <script src='/public/js/sb-admin-2.min.js'></script>
+   </body>
+</html>
+
