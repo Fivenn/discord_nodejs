@@ -46,6 +46,10 @@ botDiscord.on('message', message => {
     if (message.content.startsWith('!mute')) {
         mute(message);
     }
+
+    if(message.content.startsWith('!deaf')) {
+        deaf(message);
+    }
 });
 
 //==========//
@@ -169,13 +173,58 @@ async function mute(message) {
                     });
                 } catch (e) {
                     console.log(e.stack);
-                    message.reply('impossible to create or assign the "mute" role');
+                    message.reply('impossible to create or assign the "muted" role');
                 }
             }
             await(member.addRole(muterole.id)).then(res => {
                 message.reply(`Successfully mute ${user.tag}`);
             }).catch(err => {
                 message.reply('I was unable to mute the member');
+                console.error(err);
+            })
+        } else {
+            message.reply('That user isn\'t in this guild');
+        }
+    } else {
+        message.reply('You didn\'t mention the user to kick');
+    }
+}
+
+async function deaf(message) {
+    const user = message.mentions.users.first(); // Récupération du nom de l'utilisateur à bannir
+    const guild = message.guild; // Récupération du nom du serveur sur lequel on exécute la commande
+    const regexCmd = /\s?([<0-9>])\s/; // Regex permettant de récupérer la raison du ban
+    const resRegCmd = message.content.split(regexCmd); // On applique la regex sur le contenu de la commande
+
+    /* Si on arrive à récupérer l'utilisateur Discord */
+    if (user) {
+        const member = message.guild.member(user); // Récupération du membre en fonction de l'utilisateur récupéré
+        /* Si on arrive à récupérer le membre du serveur Discord associé à l'utilisateur */
+        if (member) {
+            let muterole = message.guild.roles.find(x => x.name === "deafed");
+
+            if (!muterole) {
+                try {
+                    muterole = await message.guild.createRole({
+                        name: "deafed",
+                        color: "#FF0000",
+                        permissions: []
+                    })
+                    message.guild.channels.forEach(async channel => {
+                        await channel.overwritePermissions(muterole, {
+                            SPEAK: false,
+
+                        });
+                    });
+                } catch (e) {
+                    console.log(e.stack);
+                    message.reply('impossible to create or assign the "deafed" role');
+                }
+            }
+            await(member.addRole(muterole.id)).then(res => {
+                message.reply(`Successfully deaf ${user.tag}`);
+            }).catch(err => {
+                message.reply('I was unable to deaf the member');
                 console.error(err);
             })
         } else {
