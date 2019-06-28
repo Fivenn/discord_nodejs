@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang='en'>
    <head>
@@ -65,44 +63,24 @@
                      </div>
                   </div>
                </div>
+               <div class="col-lg-6">
                <div class="card shadow mb-4">
                   <div class="card-header py-3">
-                     <h6 class="m-0 font-weight-bold text-primary">Gestion des rôles</h6>
+                     <h6 class="m-0 font-weight-bold text-primary">Gestion des rôles : ajout d'une commande</h6>
                   </div>
                   <div class="card-body">
-                    <form form class='user' method='POST' action='/configuration'>
-                      <input type="hidden" id='guild' name='guild' value=<%= id %>
-                      <div class="table-responsive">
-                          <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                            <thead>
-                                <tr>
-                                  <th>Role</th>
-                                  <th>Mute</th>
-                                  <th>Deaf</th>
-                                  <th>Kick</th>
-                                  <th>Ban</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                              <% roles.forEach((element) => { %>
-                                <input type="hidden" id='role' name='role' value=<%= element.name %>>
-                                <tr>
-                                  <td><%= element.name %></td>
-                                  <td><input type="checkbox" id='Mute' name='Mute' value=<%= element.name %>></td>
-                                  <td><input type="checkbox" id='Deaf' name='Deaf' value=<%= element.name %>></td>
-                                  <td><input type="checkbox" id='Kick' name='Kick' value=<%= element.name %>></td>
-                                  <td><input type="checkbox" id='Ban' name='Ban' value=<%= element.name %>></td>
-                                </tr>
-                              <% }) %>
-                            </tbody>
-                          </table>
-                      </div>
-                      <div class="my-2"></div>
-                      <input type='submit' value='Valider' class='btn btn-primary btn-user btn-block'/>
-
-                    </form>
+                        <div class="my-2"></div>
+                        <form form class='user' method='POST' action='/configuration'>
+                          <input type="hidden" id='guild' name='guild' value=<%= id %>>
+                          <input type="text" class="form-control form-control-user" id="roleName" name="roleName" placeholder="Nom du rôle">
+                          <input type="text" class="form-control form-control-user" id="commandeName" name="commandeName" placeholder="Nom de la commande">
+                          <input type="text" class="form-control form-control-user" id="commandeAtom" name="commandeAtom" placeholder="Nom de l'atom de la commande">
+                          <input type='submit' value='Ajouter' class='btn btn-primary btn-user btn-block'/>
+                        </form>
                   </div>
                </div>
+               </div>
+            </div>
             <div class="row">
                 <div class="col-lg-6">
                    <div class="card shadow mb-4">
@@ -114,7 +92,7 @@
                       <div class="card-body">
                           <input type="hidden" id='guild' name='guild' value=<%= id %>>
                           <input type="text" class="form-control form-control-user" id="roleName" name="roleName" placeholder="Nom du rôle">
-                          <input type="text" class="form-control form-control-user" id="roleColor" name="roleColor" placeholder="Couleur : BLUE / YELLOW / GREEN / RED...">
+                          <input class="form-control form-control-user" id="roleColor" name="roleColor" placeholder="Couleur : BLUE / YELLOW / GREEN / RED..." type="color">
                           <input type="text" class="form-control form-control-user" id="rolePosition" name="rolePosition" placeholder="Position 0, 1, 2 ...">
                           <input type='submit' value='Valider' class='btn btn-primary btn-user btn-block'/>
                       </div>
@@ -153,7 +131,7 @@
             <footer class="sticky-footer bg-white">
                <div class="container my-auto">
                   <div class="copyright text-center my-auto">
-                     <span>Copyright &copy; Your Website 2019</span>
+                     <span> &copy;Nicolas Sueur - Charles Picard</span>
                   </div>
                </div>
             </footer>
