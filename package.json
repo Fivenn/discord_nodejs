@@ -17,7 +17,10 @@
   },
   "homepage": "https://github.com/Fivenn/discord_nodejs#readme",
   "dependencies": {
+    "body-parser": "^1.19.0",
+    "discord-oauth2": "^1.2.3",
     "discord.js": "^11.5.1",
+    "ejs": "^2.6.2",
     "express": "^4.17.1",
     "pg": "^7.11.0",
     "websocket": "^1.0.28"

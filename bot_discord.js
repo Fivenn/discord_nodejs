@@ -34,3 +34,11 @@ botDiscord.on('message', message => {
         botFunctions.deaf(message);
     }
 });
+
+botDiscord.on('guildCreate', () => {
+    botFunctions.guildCreate(botDiscord);
+});
+
+botDiscord.on('guildDelete', (guild) => {
+    console.log('ByeBye');
+});

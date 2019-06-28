@@ -1,5 +1,5 @@
 create table Utilisateur (
-    id integer,
+    id bigint,
     pseudo varchar(30) not null,
     num_authent integer not null,
     nitro boolean,
@@ -8,10 +8,11 @@ create table Utilisateur (
 );
 
 create table Serveur (
-    id integer,
+    id bigint,
     nom varchar(30),
+    token varchar(30),
     capacite integer not null,
-    createur integer not null,
+    createur bigint not null,
     primary key(id)
 );
 
@@ -19,7 +20,7 @@ create table Role (
     nom varchar(30),
     couleur varchar(30),
     position integer,
-    primary key(position)
+    primary key(nom,position)
 );
 
 create table Sanction (
@@ -31,15 +32,16 @@ create table Sanction (
 );
 
 create table EstMembre (
-    id_utilisateur integer,
-    id_serveur integer,
-    role integer,
+    id_utilisateur bigint,
+    id_serveur bigint,
+    position_role integer,
+	nom_role varchar(30),
 	sanction_raison varchar(100),
     sanction_atom varchar(10),
-    primary key(id_utilisateur,id_serveur,role),
+    primary key(id_utilisateur,id_serveur,position_role,nom_role),
     constraint utilisateur_membre foreign key (id_utilisateur) references Utilisateur(id),
     constraint serveur_membre foreign key (id_serveur) references Serveur(id),
-    constraint role_membre foreign key (role) references Role(position),
+    constraint role_membre foreign key (position_role,nom_role) references Role(position,nom),
 	constraint sanction_membre foreign key (sanction_raison,sanction_atom) references Sanction(raison,atom)
 );
 
@@ -47,7 +49,7 @@ create table Salon (
     nom varchar(30),
     type varchar(30),
     categorie varchar(30),
-    id_serveur integer,
+    id_serveur bigint,
     primary key(nom,type),
     constraint serveur_salon foreign key (id_serveur) references Serveur(id)
 );
@@ -72,11 +74,12 @@ create table Commande (
 );
 
 create table AttributionRole(
-    role int,
+    position_role int,
+	nom_role varchar(30),
     nom_commande varchar(30),
     atom_commande varchar(30),
-    primary key(role,nom_commande,atom_commande),
-    constraint attri_role foreign key (role) references Role(position),
+    primary key(position_role,nom_role,nom_commande,atom_commande),
+    constraint attri_role foreign key (position_role,nom_role) references Role(position,nom),
     constraint attr_commande_nom foreign key (nom_commande,atom_commande) references Commande(nom,atom)
 );
 
@@ -86,8 +89,8 @@ insert into Utilisateur values(3,'Fiven','555',true,'0000000000');
 insert into Utilisateur values(4,'Loken','333',false,'0000000000');
 insert into Utilisateur values(5,'Birlak','888',false,'0000000000');
 
-insert into Serveur values(1,'IMR',30,4);
-insert into Serveur values(2,'Return null',10,3);
+insert into Serveur values(1,'IMR',null,30,4);
+insert into Serveur values(2,'Return null',null,10,3);
 
 insert into Salon values('general','textuel','general',1);
 insert into Salon values('general','vocal','general',1);
@@ -103,49 +106,19 @@ insert into Sanction values(false, null, 'giga relou', 'BAN');
 
 insert into SanctionSalon values('relou','KICK','nsfw','vocal');
 
-insert into EstMembre values(1,2,3,'relou','KICK');
-insert into EstMembre values(1, 1, 3, 'giga relou', 'BAN');
-insert into EstMembre values(3,2,1,null,null);
-insert into EstMembre values(4,1,2,null,null);
-insert into EstMembre values(4,2,3,null,null);
-insert into EstMembre values(5,2,3,null,null);
+insert into EstMembre values(1,2,3,'sbire','relou','KICK');
+insert into EstMembre values(1, 1, 3,'sbire','giga relou', 'BAN');
+insert into EstMembre values(3,2,1,'modo',null,null);
+insert into EstMembre values(4,1,2,'delegue',null,null);
+insert into EstMembre values(4,2,3,'sbire',null,null);
+insert into EstMembre values(5,2,3,'sbire',null,null);
 
 
 insert into Commande values('kikoo','KICK','general','textuel');
 insert into Commande values('yo','KICK','general','vocal');
 insert into Commande values('wesh','MUTE','nsfw','vocal');
 
-insert into AttributionRole values(1,'kikoo','KICK');
-insert into AttributionRole values(2,'wesh','MUTE');
+insert into AttributionRole values(1,'modo','kikoo','KICK');
+insert into AttributionRole values(2,'delegue','wesh','MUTE');
 
- GRANT ALL PRIVILEGES ON TABLE attributionrole, Commande, estmembre, role, sanction, sanctionsalon, serveur, utilisateur TO bot_discord;
-
-==================================================================================
--- Peuplement pour la commande BAN et KICK
-insert into Utilisateur values(1,'Fiven','5555',true,'0000000000');
-insert into Utilisateur values(2,'Birlak','6666',false,'0000000000');
-insert into Utilisateur values(3,'FivenTest','4738',false,'0000000000');
-insert into Serveur values(1, 'NodeJS', 30, 1);
-insert into Salon values('general', 'textuel', 'general', 1);
-insert into role values('admin', 'bleu',1);
-insert into role values('sbire', 'rouge', 5);
-insert into EstMembre values(1,1,1,null,null);
-insert into EstMembre values(2,1,5,null,null);
-insert into EstMembre values(3,1,5,null,null);
-select * from estmembre, utilisateur, serveur where estmembre.id_utilisateur = utilisateur.id and estmembre.id_serveur = serveur.id;
- GRANT ALL PRIVILEGES ON TABLE attributionrole, Commande, estmembre, role, sanction, sanctionsalon, serveur, utilisateur TO bot_discord;
-
--- Peuplement pour la commande MUTE
-insert into Utilisateur values(1,'Fiven','5555',true,'0000000000');
-insert into Utilisateur values(2,'Birlak','6666',false,'0000000000');
-insert into Utilisateur values(3,'FivenTest','4738',false,'0000000000');
-insert into Serveur values(1, 'NodeJS', 30, 1);
-insert into Salon values('general', 'textuel', 'general', 1);
-insert into role values('admin', 'bleu',1);
-insert into role values('sbire', 'rouge', 5);
-insert into role values('mute', 'rouge', 6);
-insert into EstMembre values(1,1,1,null,null);
-insert into EstMembre values(2,1,5,null,null);
-insert into EstMembre values(3,1,5,null,null);
-select * from estmembre, utilisateur, serveur where estmembre.id_utilisateur = utilisateur.id and estmembre.id_serveur = serveur.id;
- GRANT ALL PRIVILEGES ON TABLE attributionrole, Commande, estmembre, role, sanction, sanctionsalon, serveur, utilisateur TO bot_discord;
+ GRANT ALL PRIVILEGES ON TABLE attributionrole, Commande, estmembre, role, sanction, sanctionsalon, serveur, utilisateur, salon TO bot_discord;
