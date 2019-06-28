@@ -83,42 +83,4 @@ create table AttributionRole(
     constraint attr_commande_nom foreign key (nom_commande,atom_commande) references Commande(nom,atom)
 );
 
-insert into Utilisateur values(1,'bob','456',false,'0000000000');
-insert into Utilisateur values(2,'harry','677',false,'0000000000');
-insert into Utilisateur values(3,'Fiven','555',true,'0000000000');
-insert into Utilisateur values(4,'Loken','333',false,'0000000000');
-insert into Utilisateur values(5,'Birlak','888',false,'0000000000');
-
-insert into Serveur values(1,'IMR',null,30,4);
-insert into Serveur values(2,'Return null',null,10,3);
-
-insert into Salon values('general','textuel','general',1);
-insert into Salon values('general','vocal','general',1);
-insert into Salon values('nsfw','vocal','adulte',2);
-
-insert into role values('delegue','bleu',2);
-insert into role values('sbire','rouge',3);
-insert into role values('modo','vert',1);
-
-insert into Sanction values(true, 3600, 'relou','KICK');
-insert into Sanction values(true, 3600, 'spam','KICK');
-insert into Sanction values(false, null, 'giga relou', 'BAN');
-
-insert into SanctionSalon values('relou','KICK','nsfw','vocal');
-
-insert into EstMembre values(1,2,3,'sbire','relou','KICK');
-insert into EstMembre values(1, 1, 3,'sbire','giga relou', 'BAN');
-insert into EstMembre values(3,2,1,'modo',null,null);
-insert into EstMembre values(4,1,2,'delegue',null,null);
-insert into EstMembre values(4,2,3,'sbire',null,null);
-insert into EstMembre values(5,2,3,'sbire',null,null);
-
-
-insert into Commande values('kikoo','KICK','general','textuel');
-insert into Commande values('yo','KICK','general','vocal');
-insert into Commande values('wesh','MUTE','nsfw','vocal');
-
-insert into AttributionRole values(1,'modo','kikoo','KICK');
-insert into AttributionRole values(2,'delegue','wesh','MUTE');
-
  GRANT ALL PRIVILEGES ON TABLE attributionrole, Commande, estmembre, role, sanction, sanctionsalon, serveur, utilisateur, salon TO bot_discord;

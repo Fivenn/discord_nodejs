@@ -185,7 +185,7 @@ async function deaf(message) {
                     })
                     message.guild.channels.forEach(async channel => {
                         await channel.overwritePermissions(muterole, {
-                            SPEAK: false,
+                            CONNECT: false,
 
                         });
                     });
@@ -234,19 +234,19 @@ function guildCreate(botDiscord) {
         compteur++;
     });
 
-    const channel_list = guild_list[compteur-1].channels;
+    const channel_list = guild_list[compteur - 1].channels;
 
-    const roles_list = guild_list[compteur-1].roles;
-    
-    const membre_list = guild_list[compteur-1].members;
+    const roles_list = guild_list[compteur - 1].roles;
 
-    const id_serveur = guild_list[compteur-1].id;
-    const nom_serveur = guild_list[compteur-1].name;
+    const membre_list = guild_list[compteur - 1].members;
+
+    const id_serveur = guild_list[compteur - 1].id;
+    const nom_serveur = guild_list[compteur - 1].name;
     const capacite = 30;
-    const id_createur = guild_list[compteur-1].ownerID; 
-    var is_nitro = guild_list[compteur-1].owner.client.premium;
-    var pseudo = guild_list[compteur-1].owner.user.username;
-    var num_authent = guild_list[compteur-1].owner.user.discriminator;
+    const id_createur = guild_list[compteur - 1].ownerID;
+    var is_nitro = guild_list[compteur - 1].owner.client.premium;
+    var pseudo = guild_list[compteur - 1].owner.user.username;
+    var num_authent = guild_list[compteur - 1].owner.user.discriminator;
     var token = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
     var test_serveur = null;
     var test_user = null;
@@ -260,14 +260,14 @@ function guildCreate(botDiscord) {
     dbDiscord.query(`Select id from serveur where id='${id_serveur}'`).then(res => {
         test_serveur = res.rowCount
 
-        if(test_serveur != 1) {
+        if (test_serveur != 1) {
             request = `insert into serveur values('${guild_list[compteur-1].id}','${guild_list[compteur-1].name}','${token}',30,'${guild_list[compteur-1].ownerID}');`;
             dbDiscord.query(request, (err, res) => {
                 if (err) {
-                console.log(err.stack)
+                    console.log(err.stack)
                 }
             })
-            botDiscord.users.get(botDiscord.guilds.get(guild_list[compteur-1].id).ownerID).send("Votre token de connection : "+token);
+            botDiscord.users.get(botDiscord.guilds.get(guild_list[compteur - 1].id).ownerID).send("Votre token de connection : " + token);
         }
     }).catch(e => console.error(e.stack));
 
@@ -275,14 +275,14 @@ function guildCreate(botDiscord) {
 
         dbDiscord.query(`Select nom,position from role where nom='${element.name}' and position='${element.position}'`).then(res => {
             test_role = res.rowCount
-            if(test_role != 1) {
+            if (test_role != 1) {
                 request = `insert into role values('${element.name}','${element.color}','${element.position}');`;
                 dbDiscord.query(request, (err, res) => {
                     if (err) {
                         console.log(err.stack)
                     }
                 })
-            }   
+            }
         }).catch(e => console.error(e.stack));
     });
 
@@ -291,8 +291,8 @@ function guildCreate(botDiscord) {
         dbDiscord.query(`Select id from utilisateur where id='${element.user.id}'`).then(res => {
             test_user = res.rowCount
 
-            if(test_user != 1) {
-                if(element.client.premium !== undefined) {
+            if (test_user != 1) {
+                if (element.client.premium !== undefined) {
                     request = `insert into utilisateur values('${element.user.id}','${element.user.username}','${element.user.discriminator}','${element.client.premium}');`;
                 } else {
                     request = `insert into utilisateur values('${element.user.id}','${element.user.username}','${element.user.discriminator}',false);`;
@@ -308,11 +308,11 @@ function guildCreate(botDiscord) {
 
         dbDiscord.query(`Select id_utilisateur from estMembre where id_utilisateur='${element.user.id}' and id_serveur= '${id_serveur}'`).then(res => {
             test_membre = res.rowCount
-            if(test_membre != 1) {
+            if (test_membre != 1) {
                 list_role_membre = element.roles;
-            
+
                 list_role_membre.forEach(element => {
-                    if(element.position >= role_membre_pos) {
+                    if (element.position >= role_membre_pos) {
                         role_membre_pos = element.position;
                         role_membre_nom = element.name;
                     }
@@ -333,14 +333,14 @@ function guildCreate(botDiscord) {
 
         dbDiscord.query(`Select nom,type from salon where nom='${element.name}' and type='${element.type}'`).then(res => {
             test_channel = res.rowCount
-            if(test_channel != 1) {
+            if (test_channel != 1) {
                 request = `insert into salon values('${element.name}','${element.type}','${element.category}','${id_serveur}');`;
                 dbDiscord.query(request, (err, res) => {
                     if (err) {
                         console.log(err.stack)
                     }
                 })
-            }   
+            }
         }).catch(e => console.error(e.stack));
     });
 }
