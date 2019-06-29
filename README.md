@@ -1,6 +1,12 @@
 # discord_nodejs
 Bot Discord NodeJS
 
+## Lancement du projet :
+
+* Créer la BDD en utilisant le fichier bdd/bdd.sql
+* Modifier la configuration de la connexion a la BDD pour l'adapter à la votre dans interface.js et bot_discord_functions.js
+* Lancez deux terminaux et exécutez le fichier bot_discord.js sur l'un et interface.js sur l'autre
+
 ## Modules à prévoir
 * Express : Gestion des routes, EJS et Middleware
 * Socket.io : Communication synchrone
@@ -12,7 +18,7 @@ Bot Discord NodeJS
 * Pg : Permet la connection à la base de données
 * Websocket : Permet la connection à la gateway Discord
 
-### Fichiers :
+## Fichiers :
 
 * connection_gateway.js : Fichier d'exemple de connection à la Gateway Discord avec Ping/Pong sans Discord.js
 * bot_discord.js : Fichier centrale appelant les fonctions du bot
