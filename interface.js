@@ -12,7 +12,7 @@ botDiscord.login(token);
 const {
     Client
 } = require('pg');
-const connectionString = 'postgresql://bot_discord:bot_discord@localhost:5555/bot_discord';
+const connectionString = 'postgresql://bot_discord:bot_discord@localhost:5432/Discord';
 const dbDiscord = new Client({
     connectionString: connectionString,
 }); 
