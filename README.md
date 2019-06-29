@@ -10,7 +10,7 @@ Bot Discord NodeJS
 ### Lancement du projet
 * Lancez deux terminaux et exécutez le fichier bot_discord.js sur l'un et interface.js sur l'autre.
 
-## Modules à prévoir
+## Modules à prévoir :
 * Express : Gestion des routes, EJS et Middleware
 * Socket.io : Communication synchrone
 * Body-parser : Gestion des formulaires web
