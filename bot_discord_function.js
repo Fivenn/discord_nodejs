@@ -13,6 +13,11 @@ dbDiscord.connect();
 //===========//
 // Functions //
 //===========//
+/* 
+* Cette fonction permet de bannir une personne d'un serveur discord quand on réalise la commande "!ban".
+* Elle permet aussi de pouvoir modifier notre base de données afin d'ajouter une nouvelle sanction (avec une éventuelle raison) et de l'appliquer à un membre.
+* Exemple de commande : !ban @membre_discord_à_bannir raison
+*/
 function ban(message) {
     const user = message.mentions.users.first(); // Récupération du nom de l'utilisateur à bannir
     const guild = message.guild; // Récupération du nom du serveur sur lequel on exécute la commande
@@ -58,6 +63,11 @@ function ban(message) {
     }
 }
 
+/*
+* Cette fonction permet d'expulser une personne d'un serveur discord quand on réalise la commande "!kick".
+* Elle permet aussi de pouvoir modifier notre base de données afin d'ajouter une nouvelle sanction (avec une éventuelle raison) et de l'appliquer à un membre.
+* Exemple de commande : !kick @membre_discord_à_bannir raison
+*/
 function kick(message) {
     const user = message.mentions.users.first(); // Récupération du nom de l'utilisateur à bannir
     const guild = message.guild; // Récupération du nom du serveur sur lequel on exécute la commande
@@ -79,7 +89,7 @@ function kick(message) {
                     console.log(res.rows[0]);
                 }).catch(e => console.error(e.stack));
 
-                /* Update du membre à bannir pour lui appliquer la sanction dans notre database */
+                /* Update du membre à kick pour lui appliquer la sanction dans notre database */
                 request = `update estmembre
                    set sanction_raison = '${resRegCmd[2]}', sanction_atom = 'KICK'
                    from utilisateur, serveur
@@ -101,6 +111,11 @@ function kick(message) {
     }
 }
 
+/* 
+* Cette fonction permet de mute une personne d'un serveur discord quand on réalise la commande "!mute".
+* Elle permet aussi de pouvoir modifier notre base de données afin d'ajouter une nouvelle sanction (avec une éventuelle raison) et de l'appliquer à un membre.
+* Exemple de commande : !mute @membre_discord_à_bannir raison
+*/
 async function mute(message) {
     const user = message.mentions.users.first(); // Récupération du nom de l'utilisateur à bannir
     const guild = message.guild; // Récupération du nom du serveur sur lequel on exécute la commande
@@ -112,20 +127,24 @@ async function mute(message) {
         const member = message.guild.member(user); // Récupération du membre en fonction de l'utilisateur récupéré
         /* Si on arrive à récupérer le membre du serveur Discord associé à l'utilisateur */
         if (member) {
-            let muterole = message.guild.roles.find(x => x.name === "muted");
+            let muterole = message.guild.roles.find(x => x.name === "muted"); // muterole contient l'éventuel rôle muted trouvé sur un serveur
 
+            /* Si le rôle n'existe pas sur le serveur, on le créer */
             if (!muterole) {
                 try {
+                    /* Création d'un rôle muted avec les paramètres spécifiés ci-dessous */
                     muterole = await message.guild.createRole({
-                        name: "muted",
-                        color: "#FF0000",
-                        permissions: []
+                        name: "muted", // Nom du rôle
+                        color: "#FF0000", // Couleur du rôle (rouge ici)
+                        permissions: [] // Les éventuels permissions du rôle. Ici nous n'en mettons pas car elles seront écrasées par les permissions des salons
                     })
+
+                    /* Pour chaque channel présent sur notre serveur on applique le rôle muted et set up les permissions ci-dessous */
                     message.guild.channels.forEach(async channel => {
                         await channel.overwritePermissions(muterole, {
-                            SEND_MESSAGES: false,
-                            ADD_REACTIONS: false,
-                            SPEAK: false
+                            SEND_MESSAGES: false, // Impossibilité d'envoyer des messages dans les channels textuel
+                            ADD_REACTIONS: false, // Impossibilité de réagir à des messages dans les channels textuel
+                            SPEAK: false // Impossibilité de parler dans les channels textuel
                         });
                     });
                 } catch (e) {
@@ -133,6 +152,7 @@ async function mute(message) {
                     message.reply('impossible to create or assign the "muted" role');
                 }
             }
+            /* Ajout du rôle muted au membre à mute */
             await (member.addRole(muterole.id)).then(res => {
                 var request = `insert into Sanction values (false, null, '${resRegCmd[2]}', 'MUTE')`; // Insertion dans la table Sanction de l'atom et la raison du ban (ajout de la temporalité si assez de temps)
                 /* Éxécution de la requête sur la database bot_discord */
@@ -163,6 +183,11 @@ async function mute(message) {
     }
 }
 
+/* 
+* Cette fonction permet de deaf une personne d'un serveur discord quand on réalise la commande "!deaf".
+* Elle permet aussi de pouvoir modifier notre base de données afin d'ajouter une nouvelle sanction (avec une éventuelle raison) et de l'appliquer à un membre.
+* Exemple de commande : !mute @membre_discord_à_bannir raison
+*/
 async function deaf(message) {
     const user = message.mentions.users.first(); // Récupération du nom de l'utilisateur à bannir
     const guild = message.guild; // Récupération du nom du serveur sur lequel on exécute la commande
@@ -174,18 +199,22 @@ async function deaf(message) {
         const member = message.guild.member(user); // Récupération du membre en fonction de l'utilisateur récupéré
         /* Si on arrive à récupérer le membre du serveur Discord associé à l'utilisateur */
         if (member) {
-            let muterole = message.guild.roles.find(x => x.name === "deafed");
+            /* On vérifie si un éventuel rôle deafed existe sur le serveur */
+            let deafrole = message.guild.roles.find(x => x.name === "deafed");
 
-            if (!muterole) {
+            /* Si le rôle n'existe pas sur le serveur, on le créer */
+            if (!deafrole) {
                 try {
-                    muterole = await message.guild.createRole({
-                        name: "deafed",
-                        color: "#FF0000",
-                        permissions: []
+                    /* Création du rôle deafed avec les paramètres ci-dessous */
+                    deafrole = await message.guild.createRole({
+                        name: "deafed", // Nom du rôle
+                        color: "#FF0000", // Couleur du rôle (rouge)
+                        permissions: [] // Les éventuels permissions du rôle. Ici nous n'en mettons pas car elles seront écrasées par les permissions des salons
                     })
+                    /* Pour chaque channel présent sur notre serveur on applique le rôle muted et set up les permissions ci-dessous */
                     message.guild.channels.forEach(async channel => {
-                        await channel.overwritePermissions(muterole, {
-                            CONNECT: false,
+                        await channel.overwritePermissions(deafrole, {
+                            CONNECT: false, // Impossibilité de se connecter sur un serveur vocal
 
                         });
                     });
@@ -194,7 +223,7 @@ async function deaf(message) {
                     message.reply('impossible to create or assign the "deafed" role');
                 }
             }
-            await (member.addRole(muterole.id)).then(res => {
+            await (member.addRole(deafrole.id)).then(res => {
                 var request = `insert into Sanction values (false, null, '${resRegCmd[2]}', 'DEAF')`; // Insertion dans la table Sanction de l'atom et la raison du ban (ajout de la temporalité si assez de temps)
                 /* Éxécution de la requête sur la database bot_discord */
                 dbDiscord.query(request).then(res => {
