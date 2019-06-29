@@ -83,4 +83,5 @@ create table AttributionRole(
     constraint attr_commande_nom foreign key (nom_commande,atom_commande) references Commande(nom,atom)
 );
 
- GRANT ALL PRIVILEGES ON TABLE attributionrole, Commande, estmembre, role, sanction, sanctionsalon, serveur, utilisateur, salon TO bot_discord;
+CREATE USER bot_discord WITH PASSWORD 'bot_discord';
+GRANT ALL PRIVILEGES ON TABLE attributionrole, Commande, estmembre, role, sanction, sanctionsalon, serveur, utilisateur, salon TO bot_discord;
