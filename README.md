@@ -30,4 +30,7 @@ Bot Discord NodeJS
 * bot_discord_function.js : Fichier contenant les fonctions de gestion du bot
 * interface.js : Fichier de lancement et de gestion de l'interface web 
 * views/configuration.ejs : Template de la page de configuration du serveur
-* views/index.ejs : Template de la page de connexion 
+* views/index.ejs : Template de la page de connexion
+
+## Autre
+* Le compte-rendu des parties 2 et 3, le modèle relationnel ainsi que le modèle entité-association de notre base de données se trouvent dans le dossier __docs__
