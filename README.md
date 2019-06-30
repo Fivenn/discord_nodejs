@@ -9,6 +9,9 @@ Bot Discord NodeJS
 
 ### Lancement du projet
 * Lancez deux terminaux et exécutez le fichier bot_discord.js sur l'un et interface.js sur l'autre.
+* Ajoutez notre bot à un serveur grâce à l'interface et administrez-le.
+* Gérez votre serveur Discord grâce aux commandes du fichier bot_discord.js (!kick, !ban, !mute, !deaf).
+* Signature d'une commande : !commande @member reason.
 
 ## Modules à prévoir :
 * Express : Gestion des routes, EJS et Middleware
